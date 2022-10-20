@@ -1,24 +1,15 @@
-import logo from './logo.svg';
-import './App.css';
+import { Button } from "@mui/material";
+import AirIcon from '@mui/icons-material/Air';
+import { pink } from "@mui/material/colors";
+import SearchAppBar from "./components/navbar";
+import Sidebar from "./components/sidebar";
+import CenterPage from "./components/Home";
+import { Route, Routes } from "react-router-dom"
+import FullPage from "./components/FullPage";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <FullPage />
   );
 }
 
