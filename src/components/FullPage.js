@@ -4,6 +4,7 @@ import Sidebar from "./sidebar";
 import Home from "./Home";
 import { Route, Routes, BrowserRouter } from "react-router-dom"
 import Archive from "./Archive";
+import Prova from "./Archive"
 import { useState } from "react";
 
 export default function FullPage() {
@@ -35,7 +36,7 @@ e ricaverò i dati da questi...o almeno spero sia così... */
                                     />}
                     <Routes>
                         <Route path="/" element={<Home files={files}/>} />
-                        <Route path="/archive" element={<Archive files={files}/>} />
+                        <Route path="/archive" element={<Archive />} />
                     </Routes>
             </div>
         </div>

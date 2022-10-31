@@ -2,43 +2,60 @@ import {Box, Stack, Button, Pagination, Modal, Typography, IconButton} from "@mu
 import CloseIcon from '@mui/icons-material/Close'
 import usePagination from '@mui/material/usePagination';
 import { useState } from "react";
-export default function Archive ( {files} ) {
-    const style = {
-        position: 'absolute',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
-        width: 400,
-        maxWidth: '70vw',
-        bgcolor: 'background.paper',
-        border: '2px solid #000',
-        boxShadow: 24,
-        p: 4,
-      };
+import axios from "axios";
 
-    const [modalOpen, setModalOpen] = useState(false)
-    const [modalData, setModalData] = useState('')
+const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    maxWidth: '70vw',
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+  };
 
+
+export default function Archive () {
+    const [fakejson, setFakeJson] = useState("")
+
+    const listImport = []
+    const baseUrl = "http://localhost:3000/db/fakeJson1.json"
+
+    /* axios.get(baseUrl)
+    .then(res => setFakeJson(res.data)) */
     
 
-    const handleModal = (file) => {
-        setModalOpen(!modalOpen)
-        setModalData(file)
-    }
+    fetch(baseUrl).then(r => r.json()).then((j) => setFakeJson(j))
+    
+    for (let i = 0; i<fakejson.length ;  i++){
+        listImport.push(
+        <ListOfImport  i={i} fakejson={fakejson} /> )
+    }  
 
- 
     return(
         <Box sx={{ width: '100%' }}>
            <Stack spacing={2} justifyContent="center" alignItems="center" mt={4}>   
 
             <div>This is the import's archive</div>
+            
+            {listImport}
+            </Stack> 
+        </Box>
+    )
+}
 
-            {files.map(file => 
-                <Button 
-                        variant="outlined"
-                        onClick={e => handleModal(file)}>{file.title}</Button>   
-            )}     
-            <Modal
+function ListOfImport ({i, fakejson}) {
+    const [modalOpen, setModalOpen] = useState(false)
+
+        return (
+                <>
+                <Button variant="outlined" onClick={e => setModalOpen(!modalOpen)}>
+                    {`id: ${fakejson[i]["id"]} number of file: ${fakejson[i]["number of file"]}`}
+                </Button> 
+                <Modal
                 open={modalOpen}
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
@@ -47,7 +64,7 @@ export default function Archive ( {files} ) {
                 <Box sx={style}>
                 <IconButton
                     aria-label="close"
-                    onClick={handleModal}
+                    onClick={e => setModalOpen(!modalOpen)}
                     sx={{
                         position: 'absolute',
                         right: 7,
@@ -57,15 +74,17 @@ export default function Archive ( {files} ) {
                     <CloseIcon />
                 </IconButton> 
                     <Typography id="modal-modal-title" variant="h6" component="h2">
-                        {modalData.title}
+                        {fakejson[i]["id"]}
                     </Typography>
                     <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                        {modalData.content}
+                        {fakejson[i]["nome_file"].map(nome => 
+                            <li><a href="">{nome}</a></li>)}
                     </Typography>
                 </Box>
-            </Modal>  
-            {/* <Pagination count={10} variant="outlined" shape="rounded" color="primary"/> */}
-            </Stack> 
-        </Box>
-    )
+            </Modal>      
+            </>    
+    )         
 }
+
+
+
