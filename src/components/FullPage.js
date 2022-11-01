@@ -2,25 +2,31 @@
 import SearchAppBar from "./navbar";
 import Sidebar from "./sidebar";
 import Home from "./Home";
-import { Route, Routes, BrowserRouter } from "react-router-dom"
+import { Route, Routes, BrowserRouter, json } from "react-router-dom"
 import Archive from "./Archive";
 import Prova from "./Archive"
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function FullPage() {
     const [selectedIndex, setSelectedIndex] = useState(0);
     const [menu, setMenu] = useState(false)
+    const [fakejson, setFakeJson] = useState("")
+    const baseUrl = "http://localhost:3000/db/fakeJson1.json"
+
 
     const handleMenu = () =>{
         setMenu(!menu)
-    }
+    } 
+   /*  const importList = () => {
+         fetch(baseUrl).then(r => r.json()).then((j) => setFakeJson(j))
+    } */
+    
 
-    const files = [
-        {title: 'import 1', content: 'contenuto 1'}, 
-        {title: 'import 42', content: 'contenuto 2'}, 
-        {title: 'import 3ciao', content: 'contenuto 3'}
-    ] /* questo è solo un esempio, probabilmente qui andranno i json
-e ricaverò i dati da questi...o almeno spero sia così... */
+    useEffect(() => {
+        fetch(baseUrl)
+        .then(response => response.json())
+        .then(data => setFakeJson(data))
+      },[])
 
     return (
         <div className="App">
@@ -35,8 +41,8 @@ e ricaverò i dati da questi...o almeno spero sia così... */
                                     setSelectedIndex={setSelectedIndex}
                                     />}
                     <Routes>
-                        <Route path="/" element={<Home files={files}/>} />
-                        <Route path="/archive" element={<Archive />} />
+                        <Route path="/" element={fakejson && <Home list={fakejson}/>} />
+                        <Route path="/archive" element={<Archive list={fakejson} />} />
                     </Routes>
             </div>
         </div>

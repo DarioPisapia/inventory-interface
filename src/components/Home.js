@@ -1,11 +1,10 @@
 
 
 import * as React from 'react';
-/* import Box from '@mui/joy/Box'; */
 import Divider from '@mui/joy/Divider';
 import Typography from '@mui/joy/Typography';
-import { Button, IconButton, Modal, Box } from '@mui/material';
-import CloseIcon from '@mui/icons-material/Close'
+import { Box } from '@mui/material';
+
 
 const style = {
     backgroundColor:'background.paper',
@@ -21,31 +20,17 @@ const style = {
   };
 
 
-export default function Home( {files} ){
-
-    return (
-        <div style={{position: 'absolute',
-        top: '90px',
-        left: '15px',}}>
-            <DividerInModalDialog files={files} />
-        </div>
-        
-        
-    )
-}
-function DividerInModalDialog({files}) {
-
-
-    const [openImport, setOpenImport] = React.useState(false)
+export default function Home({list}) {
     
+    const last = list.length -1
+
+
     return (
-        <>
         <Box
             sx={{
             px: 2,
             py: 1.5,
-            m: 'calc(-1 * var(--ModalDialog-padding))',
-            mt: 0,
+            m: {xs: "10% auto", sm:"5% auto"},
             backgroundColor: 'background.paper', 
             borderBottomLeftRadius: 'var(--ModalDialog-radius)',
             borderBottomRightRadius: 'var(--ModalDialog-radius)',
@@ -53,55 +38,29 @@ function DividerInModalDialog({files}) {
             border: '1px solid lightGrey',
             borderRadius: '7px',
             boxShadow: "4px 4px 6px #D3D3D3",
-            width: '300px',
-            height: '200px',
-            maxWidth: '85%'  
+            width: {xs:'80%', sm:'40vw'},
+            maxWidth: '80%'  
             }}
         >
-            <Typography fontSize="lg" fontWeight="lg" color='primary'>
+        <Typography fontSize="lg" fontWeight="lg" color='primary' sx={{mt:1}}>
             Last import
         </Typography>
         <Divider  sx={{ my: 1.5, backgroundColor:'#D3D3D3' }} />
-        <Typography level="body2" fontWeight="lg" mt="15px">
-            {files[0]['title']}
+        <Typography level="body2" fontWeight="lg" mt="15px" >
+            {`Import ID: ${list[last]['id']}`}
         </Typography>
         <Divider  sx={{ my: 1.5 }} />
         <Typography level="body2">
-            {files[0]['content']}
+            {`Number of files: ${list[last]['file_number']}`}
         </Typography>
-            <Button   sx={{
-                position: 'relative',
-                top:'32%', 
-                left:'74%',
-                }}
-                onClick={e => setOpenImport(!openImport)}
-                >Expand</Button>
+        <Divider  sx={{ my: 1.5 }} />
+        <Typography level="body2">
+            {"Files:"}
+        </Typography>
+        <Typography id="modal-modal-description" sx={{ mt: 1, mb:1 }}>
+            {list[last]["nome_file"].map(nome => 
+                    <li ><a href="">{nome}</a></li>)}
+        </Typography>
         </Box>
-        <Modal
-            open={openImport}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
-            >          
-            <Box sx={style}>
-            <IconButton
-                aria-label="close"
-                onClick={e => setOpenImport(!openImport)}
-                sx={{
-                    position: 'absolute',
-                    right: 7,
-                    top: 7,
-                }}
-                >
-                <CloseIcon />
-            </IconButton> 
-                <Typography id="modal-modal-title" variant="h6" component="h2">
-                    {files[0]['title']}
-                </Typography>
-                <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                    {files[0]['content']}
-                </Typography>
-            </Box>
-        </Modal>
-        </> 
     );
 }

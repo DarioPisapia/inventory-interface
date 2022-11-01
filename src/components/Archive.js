@@ -1,6 +1,5 @@
-import {Box, Stack, Button, Pagination, Modal, Typography, IconButton} from "@mui/material"
+import {Box, Stack, Button, Modal, Typography, IconButton, Divider} from "@mui/material"
 import CloseIcon from '@mui/icons-material/Close'
-import usePagination from '@mui/material/usePagination';
 import { useState } from "react";
 import axios from "axios";
 
@@ -18,28 +17,41 @@ const style = {
   };
 
 
-export default function Archive () {
-    const [fakejson, setFakeJson] = useState("")
+export default function Archive ( {list} ) {
 
+    const [order, setOrder] = useState("reverse")
     const listImport = []
-    const baseUrl = "http://localhost:3000/db/fakeJson1.json"
+
 
     /* axios.get(baseUrl)
     .then(res => setFakeJson(res.data)) */
-    
-
-    fetch(baseUrl).then(r => r.json()).then((j) => setFakeJson(j))
-    
-    for (let i = 0; i<fakejson.length ;  i++){
-        listImport.push(
-        <ListOfImport  i={i} fakejson={fakejson} /> )
-    }  
+  
+    if(order === "reverse"){
+        for (let i = list.length - 1; i>= 0 ;  i--){
+            listImport.push(
+            <ListOfImport  i={i} list={list} /> )
+            }  
+    }
+    if (order === "forward"){
+        for (let i = 0; i < list.length ;  i++){
+            listImport.push(
+            <ListOfImport  i={i} list={list} /> )
+            }   
+    }
+      
+    const hadleOrder = () => {
+        order === "reverse" ? setOrder("forward") : setOrder("reverse") 
+    }
 
     return(
         <Box sx={{ width: '100%' }}>
            <Stack spacing={2} justifyContent="center" alignItems="center" mt={4}>   
-
-            <div>This is the import's archive</div>
+            <Button variant="outlined" 
+                    onClick={hadleOrder} 
+                    sx={{position:{xs: "static", sm:"absolute"}, top: "15%", right:"10%"}}>
+                {order === "reverse" ? "Sort older first" : "Sort more recent first"}
+            </Button> 
+            <div style={{fontWeight: "bold", marginBottom: "1rem"}}>This is the import's archive</div>
             
             {listImport}
             </Stack> 
@@ -47,42 +59,48 @@ export default function Archive () {
     )
 }
 
-function ListOfImport ({i, fakejson}) {
+function ListOfImport ({i, list}) {
     const [modalOpen, setModalOpen] = useState(false)
 
         return (
                 <>
-                <Button variant="outlined" onClick={e => setModalOpen(!modalOpen)}>
-                    {`id: ${fakejson[i]["id"]} number of file: ${fakejson[i]["number of file"]}`}
+                <Button variant="outlined" 
+                        onClick={e => setModalOpen(!modalOpen)}
+                        sx={{width:{xs:"70%", sm:"40%"}}}>
+                    {`Import Id:   ${list[i]["id"]}`}
                 </Button> 
                 <Modal
-                open={modalOpen}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
+                    open={modalOpen}
+                    aria-labelledby="modal-modal-title"
+                    aria-describedby="modal-modal-description"
                 >
                             
-                <Box sx={style}>
-                <IconButton
-                    aria-label="close"
-                    onClick={e => setModalOpen(!modalOpen)}
-                    sx={{
-                        position: 'absolute',
-                        right: 7,
-                        top: 7,
-                    }}
-                    >
-                    <CloseIcon />
-                </IconButton> 
-                    <Typography id="modal-modal-title" variant="h6" component="h2">
-                        {fakejson[i]["id"]}
-                    </Typography>
-                    <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                        {fakejson[i]["nome_file"].map(nome => 
-                            <li><a href="">{nome}</a></li>)}
-                    </Typography>
-                </Box>
-            </Modal>      
-            </>    
+                    <Box sx={style}>
+                    <IconButton
+                        aria-label="close"
+                        onClick={e => setModalOpen(!modalOpen)}
+                        sx={{
+                            position: 'absolute',
+                            right: 7,
+                            top: 7,
+                        }}
+                        >
+                        <CloseIcon />
+                    </IconButton> 
+                        <Typography id="modal-modal-title" variant="h6" component="h2">
+                            {`Import ID:  ${list[i]["id"]}`}
+                        </Typography>
+                        <Divider  sx={{ my: 1.5 }} />
+                        <Typography level="body2">
+                            {"Files:"}
+                        </Typography>
+                        <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                            {list[i]["nome_file"].map(nome => 
+                                <li><a href="">{nome}</a></li>)}
+                        </Typography>
+                    </Box>
+                </Modal>      
+                </>    
     )         
 }
 
