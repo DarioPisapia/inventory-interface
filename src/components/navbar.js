@@ -8,8 +8,6 @@ import Typography from '@mui/material/Typography';
 import InputBase from '@mui/material/InputBase';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
-import { useState } from 'react';
-import Sidebar from './sidebar';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -56,7 +54,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 
 
-export default function SearchAppBar({ handleMenu, selectedIndex }) {
+export default function Navbar({ handleMenu, selectedIndex }) {
 
   return (
     <Box sx={{ flexGrow: 1}}>

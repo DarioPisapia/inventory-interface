@@ -2,10 +2,10 @@
 import SearchAppBar from "./navbar";
 import Sidebar from "./sidebar";
 import Home from "./Home";
-import { Route, Routes, BrowserRouter, json } from "react-router-dom"
+import { Route, Routes } from "react-router-dom"
 import Archive from "./Archive";
-import Prova from "./Archive"
 import { useState, useEffect } from "react";
+import Navbar from "./navbar";
 
 export default function FullPage() {
     const [selectedIndex, setSelectedIndex] = useState(0);
@@ -17,10 +17,9 @@ export default function FullPage() {
     const handleMenu = () =>{
         setMenu(!menu)
     } 
-   /*  const importList = () => {
-         fetch(baseUrl).then(r => r.json()).then((j) => setFakeJson(j))
-    } */
     
+    
+    /* fetch(baseUrl).then(r => r.json()).then((j) => setFakeJson(j)) */
 
     useEffect(() => {
         fetch(baseUrl)
@@ -30,10 +29,10 @@ export default function FullPage() {
 
     return (
         <div className="App">
-            <SearchAppBar 
+            <Navbar
             handleMenu={handleMenu}
             selectedIndex={selectedIndex}
-            /> 
+            />
             <div style={{display:'flex'}}>
                 {menu === true && <Sidebar 
                                     handleMenu={handleMenu} 
@@ -42,7 +41,7 @@ export default function FullPage() {
                                     />}
                     <Routes>
                         <Route path="/" element={fakejson && <Home list={fakejson}/>} />
-                        <Route path="/archive" element={<Archive list={fakejson} />} />
+                        <Route path="/archive" element={fakejson && <Archive list={fakejson} />} />
                     </Routes>
             </div>
         </div>

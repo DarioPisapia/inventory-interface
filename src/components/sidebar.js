@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom"
 
 
 export default function Sidebar({handleMenu, selectedIndex, setSelectedIndex}) {
-
+    
     const navigate = useNavigate()
 
     const handleListItemClick = (event, index) => {
@@ -44,13 +44,13 @@ export default function Sidebar({handleMenu, selectedIndex, setSelectedIndex}) {
             <ListItemText primary="Home" />
             </ListItemButton>
             <ListItemButton
-            selected={selectedIndex === 1}
-            onClick={(event) => {
-                navigate('/archive')
-                handleListItemClick(event, 1)
-                handleMenu()
-            }}
-            sx={{color: selectedIndex===1 ? '#2196f3' : '#4D4D4D'}}
+                selected={selectedIndex === 1}
+                onClick={(event) => {
+                    navigate('/archive')
+                    handleListItemClick(event, 1)
+                    handleMenu()
+                }}
+                sx={{color: selectedIndex===1 ? '#2196f3' : '#4D4D4D'}}
             >
             <ListItemIcon>
                 <DocumentScannerIcon color={selectedIndex===1 ? 'primary' : '#4D4D4D' } />

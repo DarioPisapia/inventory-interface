@@ -17,14 +17,13 @@ const style = {
     border: '2px solid #000',
     boxShadow: 24,
     p: 4,
-  };
+};
 
 
 export default function Home({list}) {
     
     const last = list.length -1
-
-
+    
     return (
         <Box
             sx={{
@@ -42,25 +41,31 @@ export default function Home({list}) {
             maxWidth: '80%'  
             }}
         >
-        <Typography fontSize="lg" fontWeight="lg" color='primary' sx={{mt:1}}>
-            Last import
-        </Typography>
-        <Divider  sx={{ my: 1.5, backgroundColor:'#D3D3D3' }} />
-        <Typography level="body2" fontWeight="lg" mt="15px" >
-            {`Import ID: ${list[last]['id']}`}
-        </Typography>
-        <Divider  sx={{ my: 1.5 }} />
-        <Typography level="body2">
-            {`Number of files: ${list[last]['file_number']}`}
-        </Typography>
-        <Divider  sx={{ my: 1.5 }} />
-        <Typography level="body2">
-            {"Files:"}
-        </Typography>
-        <Typography id="modal-modal-description" sx={{ mt: 1, mb:1 }}>
-            {list[last]["nome_file"].map(nome => 
-                    <li ><a href="">{nome}</a></li>)}
-        </Typography>
+            <Typography fontSize="lg" fontWeight="lg" color='primary' sx={{mt:1}}>
+                Last import
+            </Typography>
+
+            <Divider  sx={{ my: 1.5, backgroundColor:'#D3D3D3' }} />
+
+            <Typography level="body2" fontWeight="lg" mt="15px" >
+                {`Import ID: ${list[last]['id']}`}
+            </Typography>
+
+            <Divider  sx={{ my: 1.5 }} />
+
+            <Typography level="body2">
+                {`Number of files: ${list[last]['file_number']}`}
+            </Typography>
+
+            <Divider  sx={{ my: 1.5 }} />
+
+            <Typography level="body2">
+                {"Files:"}
+            </Typography>
+            <Typography id="modal-modal-description" sx={{ mt: 1, mb:1 }}>
+                {list[last]["nome_file"].map(nome => 
+                        <li ><a href="">{nome}</a></li>)}
+            </Typography>
         </Box>
     );
 }
