@@ -11,18 +11,15 @@ export default function FullPage() {
     const [selectedIndex, setSelectedIndex] = useState(0);
     const [menu, setMenu] = useState(false)
     const [fakejson, setFakeJson] = useState("")
-    const baseUrl = "http://localhost:3000/db/fakeJson1.json"
+    const UrlList = "http://localhost:3000/db/fakeJson1.json"
 
 
     const handleMenu = () =>{
         setMenu(!menu)
     } 
-    
-    
-    /* fetch(baseUrl).then(r => r.json()).then((j) => setFakeJson(j)) */
 
     useEffect(() => {
-        fetch(baseUrl)
+        fetch(UrlList)
         .then(response => response.json())
         .then(data => setFakeJson(data))
       },[])
