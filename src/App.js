@@ -1,5 +1,5 @@
 
-import FullPage from "./components/FullPage";
+import FullPage from "./components/fullPage/index";
 
 function App() {
   return (
