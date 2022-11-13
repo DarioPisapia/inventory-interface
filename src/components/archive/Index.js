@@ -1,6 +1,6 @@
 import {Box, Stack, Button} from "@mui/material"
 import { useState } from "react";
-import ListOfImports from "../listOfImports";
+import ListOfImports from "../listOfImports/index";
 
 export default function Archive ( {list} ) {
 
