@@ -1,23 +1,7 @@
-
-
 import * as React from 'react';
 import Divider from '@mui/joy/Divider';
 import Typography from '@mui/joy/Typography';
 import { Box } from '@mui/material';
-
-
-const style = {
-    backgroundColor:'background.paper',
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 400,
-    maxWidth: '70vw',
-    border: '2px solid #000',
-    boxShadow: 24,
-    p: 4,
-};
 
 
 export default function Home({list}) {
@@ -63,9 +47,10 @@ export default function Home({list}) {
                 {"Files:"}
             </Typography>
             <Typography id="modal-modal-description" sx={{ mt: 1, mb:1 }}>
-                {list[last]["nome_file"].map(nome => 
+                {JSON.parse(list[last]["dati_importati"]).map(nome => 
                         <li ><a href="">{nome}</a></li>)}
             </Typography>
+           
         </Box>
     );
 }

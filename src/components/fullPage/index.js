@@ -1,30 +1,24 @@
-
-import SearchAppBar from "../navbar";
 import Sidebar from "../sidebar/index";
 import Home from "../home/index";
 import { Route, Routes } from "react-router-dom"
 import Archive from "../archive/Index";
 import { useState, useEffect } from "react";
 import Navbar from "../navbar/index";
+import { archiveCall } from "../../services/apiActions";
 
 export default function FullPage() {
     const [selectedIndex, setSelectedIndex] = useState(0);
     const [menu, setMenu] = useState(false)
     const [fakejson, setFakeJson] = useState("")
-    const baseUrl = "http://localhost:3000/db/fakeJson1.json"
-
-
+    
     const handleMenu = () =>{
         setMenu(!menu)
     } 
     
-
     useEffect(() => {
-        fetch(baseUrl)
-        .then(response => response.json())
-        .then(data => setFakeJson(data))
-      },[])
-
+        archiveCall(setFakeJson)
+    }, [])
+    
     return (
         <div className="App">
             <Navbar

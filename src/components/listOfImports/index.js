@@ -6,7 +6,8 @@ import { style } from "./styles";
 
 export default function ListOfImports ({item}) {
     const [modalOpen, setModalOpen] = useState(false)
-    
+        const date = new Date(item["updated_at"])
+       
         return (
                 <>
                 <Button 
@@ -14,8 +15,9 @@ export default function ListOfImports ({item}) {
                     onClick={e => setModalOpen(!modalOpen)}
                     sx={{width:{xs:"70%", sm:"40%"}}}
                 >
-                    {/* {`Import Id:   ${list[i]["id"]}`} */}
                     {`Import Id:   ${item["id"]}`}
+                    <br></br>
+                    {`Date of Import: ${date.toLocaleString()}`}
                 </Button> 
                 <Modal
                     open={modalOpen}
@@ -43,7 +45,7 @@ export default function ListOfImports ({item}) {
                             {"Files:"}
                         </Typography>
                         <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                            {item["nome_file"].map(nome => 
+                            {JSON.parse(item["dati_importati"]).map(nome => 
                                 <li><a href="">{nome}</a></li>)}
                         </Typography>
                     </Box>
