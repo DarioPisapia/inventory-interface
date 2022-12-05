@@ -5,7 +5,7 @@ const archiveUrl = "/cronology"
 const archiveCall = (setArchiveJson) => {
     fetch(archiveUrl)
     .then(response => response.json())
-    .then(data => archiveJSON(data))
+    .then(data => setArchiveJson(data))
   }
 
 export { archiveCall } 
