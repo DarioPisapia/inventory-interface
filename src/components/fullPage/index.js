@@ -9,14 +9,14 @@ import { archiveCall } from "../../services/apiActions";
 export default function FullPage() {
     const [selectedIndex, setSelectedIndex] = useState(0);
     const [menu, setMenu] = useState(false)
-    const [fakejson, setFakeJson] = useState("")
+    const [archiveJson, setArchiveJson] = useState("")
     
     const handleMenu = () =>{
         setMenu(!menu)
     } 
     
     useEffect(() => {
-        archiveCall(setFakeJson)
+        archiveCall(setArchiveJson)
     }, [])
     
     return (
@@ -32,8 +32,8 @@ export default function FullPage() {
                                         setSelectedIndex={setSelectedIndex}
                                     />}
                     <Routes>
-                        <Route path="/" element={fakejson && <Home list={fakejson}/>} />
-                        <Route path="/archive" element={fakejson && <Archive list={fakejson} />} />
+                        <Route path="/" element={archiveJson && <Home list={archiveJson}/>} />
+                        <Route path="/archive" element={archiveJson && <Archive list={archiveJson} />} />
                     </Routes>
             </div>
         </div>

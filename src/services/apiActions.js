@@ -2,10 +2,10 @@
 
 const archiveUrl = "/cronology"
 
-const archiveCall = (setFakeJson) => {
+const archiveCall = (setArchiveJson) => {
     fetch(archiveUrl)
     .then(response => response.json())
-    .then(data => /* console.log(typeof(data), data) */setFakeJson(data))
+    .then(data => archiveJSON(data))
   }
 
 export { archiveCall } 
