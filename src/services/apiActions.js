@@ -1,8 +1,6 @@
-/* import axios from 'axios'; */
+/* const archiveUrl = "http://localhost:3001/db/fakeJson1.json" */
 
-const archiveUrl = /* "http://localhost:3001/db/fakeJson1.json" */"/cronology"
-/* 
-const archiveCall = await axios.get('/cronology').then(response => console.log(response)); */
+const archiveUrl = "/cronology"
 
 const archiveCall = (setFakeJson) => {
     fetch(archiveUrl)
